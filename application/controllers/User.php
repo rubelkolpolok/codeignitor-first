@@ -8,6 +8,38 @@
 
 class User extends CI_Controller
 {
+    public function login()
+    {
+        $this->form_validation->set_rules('user_name', 'User name', 'trim|required|min_length[3]');
+        $this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[3]');
+        $this->form_validation->set_rules('confirm_password', 'Confirm Password', 'trim|required|min_length[3]|matches[password]');
+        if ($this->form_validation->run() === false){
+            $data = [
+              'errors' => validation_errors()
+            ];
+            $this->session->set_flashdata($data);
+            redirect('home');
+        } else {
+            $username = $this->input->post('user_name');
+            $password = $this->input->post('password');
+
+            $id = $this->user_model->login_user($username, $password);
+            if ($id) {
+                $user_data = [
+                    'user_id' => $id,
+                    'user_name' => $username,
+                    'logged_id' =>true
+                ];
+                $this->session->set_userdata($user_data);
+                $this->session->set_flashdata('login_success', 'You are successfully log in.');
+                redirect('home');
+            } else {
+                $this->session->set_flashdata('login_fail', 'Sorry you are not log in');
+                redirect('home');
+            }
+        }
+    }
+
     public function show($user_id)
     {
         $data['title'] = 'User list';

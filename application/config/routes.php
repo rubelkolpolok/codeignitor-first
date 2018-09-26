@@ -9,6 +9,6 @@ $route['(:any)'] = 'pages/view/$1';*/
 
 
 
-$route['default_controller'] = 'welcome';
+$route['default_controller'] = 'home';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

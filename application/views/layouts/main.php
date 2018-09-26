@@ -11,6 +11,15 @@
     <script src="<?= base_url()?>assets/js/bootstrap.min.js"></script>
 </head>
 <body>
-
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-sm-3">
+            <?php $this->load->view('user/login_view'); ?>
+        </div>
+        <div class="col-sm-9">
+            <?php $this->load->view($home_view); ?>
+        </div>
+    </div>
+</div>
 </body>
 </html>
